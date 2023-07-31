@@ -697,7 +697,7 @@ std::vector<Component> Layout::compute_pos(const std::string& name, size_t pid) 
         }
     }
 
-    svg_Comps.to_file();
+//    svg_Comps.to_file();
     return patch_comps;
 }
 
