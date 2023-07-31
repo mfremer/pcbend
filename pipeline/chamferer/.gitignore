@@ -1,0 +1,4 @@
+build/
+release/
+.vscode/
+data/output/stl/

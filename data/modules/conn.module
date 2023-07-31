@@ -1,0 +1,44 @@
+# based on KiCAD PinHeader_1x04_P2.54mm_Vertical
+# dimensions w h
+d 11.2 3.6
+# I/O x y
+# must be flipped so that DIN (output) is connected to LED input
+i 9.42 1.8
+o 4.34 1.8
+# vias diam x y
+# vcc
+v 1.7 1.0 1.8 1.8
+# din
+v 1.7 1.0 4.34 1.8
+# dout
+v 1.7 1.0 9.42 1.8
+# gnd
+v 1.7 1.0 6.88 1.8
+# traces w (x y)+
+# gnd
+# vcc
+# din
+# dout
+# silkscreen marking
+s 0.47 1.8 0.47 0.47
+s 0.47 0.47 1.8 0.47
+s 3.07 0.47 10.75 0.47
+s 10.75 0.47 10.75 3.13
+s 10.75 3.13 3.07 3.13
+s 3.07 3.13 3.07 0.47
+# keepout zones
+# vcc (polyline)
+k 0 0 11.2 0 11.2 3.6 0 3.6 0 2.3 1.3 2.3 1.3 1.3 0 1.3
+# dat (circles) diam x y
+q 2.1 1.8 1.8
+q 2.1 4.34 1.8
+q 2.1 9.42 1.8
+# PinHeader_1x04_P2.54mm_Vertical, *.Cu *.Mask
+# posx posy rot
+x 1.8 1.8 0.0
+# atx aty szx szy rr?
+p 0.0 0.0
+p 2.54 0.0
+p 5.08 0.0
+p 7.62 0.0
+e

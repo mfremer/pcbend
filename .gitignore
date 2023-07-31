@@ -1,0 +1,14 @@
+.vscode/
+debug/
+build/
+release/
+data/results/**/
+data/sheets/
+!data/modules/
+!data/meshes/
+#!data/results/*.sheet
+/**/compile_commands.json
+.cache/
+pipeline/orderer/data/
+*.res
+*.svg
