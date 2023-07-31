@@ -1,0 +1,12 @@
+[submodule "pipeline/third-party/LibSL"]
+	path = pipeline/third-party/LibSL
+	url = https://github.com/sylefeb/LibSL.git
+[submodule "pipeline/third-party/CDT"]
+	path = pipeline/third-party/CDT
+	url = https://github.com/artem-ogre/CDT.git
+[submodule "pipeline/third-party/box2d"]
+	path = pipeline/third-party/box2d
+	url = https://github.com/erincatto/box2d.git
+[submodule "pipeline/third-party/libigl"]
+	path = pipeline/third-party/libigl
+	url = https://github.com/libigl/libigl.git
