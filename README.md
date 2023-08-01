@@ -105,7 +105,7 @@ Our PCBs are all 0.6mm thick. We passed our orders with PCBWay, using the defaul
 
 Different PCB thicknesses will result in different bending angles for the hinges according to their length. Our experiments were carried out exclusively for this specific thickness. Breakages might occur at the same bending angles with thicker PCBs.
 
-The PCBs are designed to be milled with a 1.0mm diameter bit, larger bits will not work.
+The PCBs are designed to be milled with a 1.0mm diameter drill bit, larger bits will not work.
 
 The PCB contour is a complicated shape due to our hinges, and copper traces are close to the border. We suggest that you discuss with your manufacturer how to stabilize the PCB so that it does not move during milling and no traces are damaged. We found that keeping the panel connected to the PCB with breakable tabs worked well in practice.
 
