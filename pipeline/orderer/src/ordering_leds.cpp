@@ -94,10 +94,10 @@ pair<double,v2d> externalDistanceToTriangle(v2d q, v2d p0, v2d p1, v2d p2) { // 
 	return make_pair(dist,grad);
 }
 
-bool traceInModule(v2d pt, Module module) {
-	v2d m0 = get<0>(module);
-	v2d m1 = get<1>(module);
-	v2d m2 = get<2>(module);
+bool traceInModule(v2d pt, Module mod) {
+	v2d m0 = get<0>(mod);
+	v2d m1 = get<1>(mod);
+	v2d m2 = get<2>(mod);
 	v2d m3 = m0 + (m1-m0) + (m2-m0);
 	double dist0 = externalDistanceToTriangle(pt, m0, m1, m2).first;
 	double dist1 = externalDistanceToTriangle(pt, m2, m1, m3).first;
@@ -272,8 +272,8 @@ int main(int argc, char **argv) {
 
 					// check if the other end is in module or is empty
 					int module_id = prev_module_count;
-					for(auto module : modules) {
-						if(traceInModule(trace.first, module) or traceInModule(trace.second, module)) {
+					for(auto mod : modules) {
+						if(traceInModule(trace.first, mod) or traceInModule(trace.second, mod)) {
 							printf("trace_id: %d is connected to c io: %d and module: %d\n", trace_id, cid, module_id);
 							found_trace_type = true; // go to the next trace
 							if(not trace_start) {
@@ -340,8 +340,8 @@ int main(int argc, char **argv) {
 
 					// check if the other end is in module or is empty
 					int module_id = prev_module_count;
-					for(auto module : modules) {
-						if(traceInModule(trace.first, module) or traceInModule(trace.second, module)) {
+					for(auto mod : modules) {
+						if(traceInModule(trace.first, mod) or traceInModule(trace.second, mod)) {
 							printf("trace_id: %d is connected to w io: %d and module: %d\n", trace_id, wid, module_id);
 							found_trace_type = true; // go to the next trace
 							if(not trace_start) {
@@ -438,9 +438,9 @@ int main(int argc, char **argv) {
 
 			if(fi.has_connector) {
 				int module_id = prev_module_count;
-				for(auto module: modules) {
-					if((traceInModule(trace.first, connector) and traceInModule(trace.second, module)) 
-						or traceInModule(trace.first, module) and traceInModule(trace.second, connector)) {
+				for(auto mod: modules) {
+					if((traceInModule(trace.first, connector) and traceInModule(trace.second, mod)) 
+						or traceInModule(trace.first, mod) and traceInModule(trace.second, connector)) {
 						printf("trace_id: %d joins connector and module :%d\n", trace_id, module_id);
 						found_trace_type = true;
 						everyModuleFoundATrace[module_id-prev_module_count] = true;
