@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x # stop on error
+#set -e # stop on error
 
 # General variables
 DIR_MESH="./data/meshes"
@@ -221,6 +221,7 @@ function pipeline(){
   gawk -f $AWK_STATS $FILE_FACES
   echo -e "Total runtime:\t" "$TIME_DURATION" "s"
   echo -e "Total runtime:\t" "$TIME_DURATION" "s" >> $LOG_FILE
+  rm -f *.res
 }
 
 # SEPARATE PIPELINE
