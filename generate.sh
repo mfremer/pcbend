@@ -215,8 +215,8 @@ function pipeline(){
   main_par
   concat_faces
   layout_task
-#  orderer_task
-#  ledifier_task
+  orderer_task
+  ledifier_task
   TIME_DURATION=$(($SECONDS - TIME_START))
   gawk -f $AWK_STATS $FILE_FACES
   echo -e "Total runtime:\t" "$TIME_DURATION" "s"

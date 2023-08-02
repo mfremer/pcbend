@@ -473,22 +473,26 @@ void performNearestNeighbourAnalysis() {
 				distanceV0sEdge.push_back(make_pair(v0i, distance));
 			}
 			std::sort(distanceV0sEdge.begin(), distanceV0sEdge.end(), [](auto &left, auto &right) { return left.second < right.second; });
-			vector<int> bv0s = {distanceV0sEdge[0].first};
-			float running_mean = distanceV0sEdge[0].second;
-			for(int i = 1; i < distanceV0sEdge.size(); i++) {
-				auto pairi = distanceV0sEdge[i];
-				auto v0i = pairi.first;
-				auto distance = pairi.second;
-				float df = 	distance - running_mean; 
-				if(fabs(distance - running_mean) < ledThreshold/mesh_scale) {
-					running_mean = (running_mean*i + distance) / (i+1);
-					bv0s.push_back(v0i);
+			float running_mean;
+			vector<int> bv0s, bv1s;
+			if(distanceV0sEdge.size() > 0) {
+				bv0s = {distanceV0sEdge[0].first};
+				running_mean = distanceV0sEdge[0].second;
+				for(int i = 1; i < distanceV0sEdge.size(); i++) {
+					auto pairi = distanceV0sEdge[i];
+					auto v0i = pairi.first;
+					auto distance = pairi.second;
+					float df = 	distance - running_mean; 
+					if(fabs(distance - running_mean) < ledThreshold/mesh_scale) {
+						running_mean = (running_mean*i + distance) / (i+1);
+						bv0s.push_back(v0i);
+					}
+					else {
+						// printf("giving up from vertex : %d distance to line : %f\n", v0i, distance*mesh_scale);
+						break; 
+					}
+					// printf("vertex : %d distance to line : %f\n", v0i, distance*mesh_scale);
 				}
-				else {
-					// printf("giving up from vertex : %d distance to line : %f\n", v0i, distance*mesh_scale);
-					break; 
-				}
-				// printf("vertex : %d distance to line : %f\n", v0i, distance*mesh_scale);
 			}
 
 			vector<int> v1s = worldFaceLEDPos[f1]; // all vertices in face0
@@ -497,23 +501,26 @@ void performNearestNeighbourAnalysis() {
 				float distance = getDistancePointToLine(led_points[v1i], mesh_vertices[shared_v0].pos, edge_dierction);				
 				distanceV1sEdge.push_back(make_pair(v1i, distance));
 			}
+
 			std::sort(distanceV1sEdge.begin(), distanceV1sEdge.end(), [](auto &left, auto &right) { return left.second < right.second; });
-			vector<int> bv1s = {distanceV1sEdge[0].first};
-			running_mean = distanceV1sEdge[0].second;
-			for(int i = 1; i < distanceV1sEdge.size(); i++) {
-				auto pairi = distanceV1sEdge[i];
-				auto v1i = pairi.first;
-				auto distance = pairi.second;
-				float df = 	distance - running_mean; 
-				if(fabs(distance - running_mean) < ledThreshold/mesh_scale) {
-					running_mean = (running_mean*i + distance) / (i+1);
-					bv1s.push_back(v1i);
+			if(distanceV1sEdge.size() > 0) {
+				bv1s = {distanceV1sEdge[0].first};
+				running_mean = distanceV1sEdge[0].second;
+				for(int i = 1; i < distanceV1sEdge.size(); i++) {
+					auto pairi = distanceV1sEdge[i];
+					auto v1i = pairi.first;
+					auto distance = pairi.second;
+					float df = 	distance - running_mean; 
+					if(fabs(distance - running_mean) < ledThreshold/mesh_scale) {
+						running_mean = (running_mean*i + distance) / (i+1);
+						bv1s.push_back(v1i);
+					}
+					else {
+						// printf("giving up from vertex : %d distance to line : %f\n", v1i, distance*mesh_scale);
+						break; 
+					}
+					// printf("vertex : %d distance to line : %f\n", v1i, distance*mesh_scale);
 				}
-				else {
-					// printf("giving up from vertex : %d distance to line : %f\n", v1i, distance*mesh_scale);
-					break; 
-				}
-				// printf("vertex : %d distance to line : %f\n", v1i, distance*mesh_scale);
 			}
 
 			// now i have boundary vertices // bv0 and bv1.. sort them in order of distance from sv0
@@ -996,7 +1003,29 @@ void mainKeyboard(uchar k) {
 
 int main(int argc, char **argv) {
 	Settings stgs;
-    if(argc == 6) {
+	if(argc == 1) {
+		file_off = "/home/mbhargav/Desktop/phd/electronics/pcbend/data/meshes/icosa-020.off";
+		file_sht = "/home/mbhargav/Desktop/phd/electronics/pcbend/data/results/icosa-020_big-dihedral/icosa-020.sheet";
+		file_rct = "/home/mbhargav/Desktop/phd/electronics/pcbend/data/results/icosa-020_big-dihedral/faces/icosa-020.fis";
+		file_led = "/home/mbhargav/Desktop/phd/electronics/pcbend/data/results/icosa-020_big-dihedral/icosa-020.led";
+
+		string file_module = stgs.file_module;
+		use_cli_mode = false;
+
+		// won't generalize to more modules
+		if(file_module.find("5050") != string::npos) { 
+			useBigLed = true;
+		} else {
+			useBigLed = false;
+		}
+
+		// set this two values manually if using old files
+		file_format = 1;
+		e_without_triangle_format = false;
+		without_offset_format = false;
+		mapping_old_format = false;	
+	}
+    else if(argc == 6) {
 		file_stg = argv[1];
 		file_off = argv[2];
 		file_sht = argv[3];
