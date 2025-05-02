@@ -8,7 +8,7 @@ Affiliations:
 - <sup>2</sup> ISTA (Institute of Science and Technology Austria), Austria
 
 Please also check the following:
-- [Project page](https://mfremer.github.io/publications/pcbend)
+- [Project page](https://mfremer.github.io/publications/2023Freire)
 - [Submission video](https://youtu.be/nJspqdpyWq4)
 - [Submission data](https://mybox.inria.fr/d/cabc196c89704ec090e6/)
 
